@@ -1,0 +1,227 @@
+:root{
+    --brown: #472900;
+    --brown-soft: rgba(71, 41, 0, .702);
+    --orange: #FFA11F;
+    --card: #FFF0DB;
+    --bg: #FFF9F1;
+    --radius: 22px;
+    --shadow: 0 6px 18px rgba(71, 41, 0, .08);
+    --page-top: 28px;
+}
+
+*{ box-sizing: border-box; margin: 0; padding: 0; }
+
+html{ scroll-behavior: smooth; }
+
+body{
+    background-color: var(--bg);
+    overflow-x: clip;
+    color: var(--brown);
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+img{ max-width: 100%; display: block; }
+ul, ol{ list-style: none; }
+a{ color: inherit; text-decoration: none; }
+
+svg{
+    width: 1.25em; height: 1.25em;
+    fill: none; stroke: currentColor;
+    stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    flex-shrink: 0;
+}
+
+:focus-visible{ outline: 3px solid var(--orange); outline-offset: 3px; }
+
+/* ---------- Layout ---------- */
+.page{
+    width: 100%;
+    max-width: 560px;
+    margin: 0 auto;
+    padding: var(--page-top) 20px 40px;
+}
+
+section{ margin-top: 36px; }
+
+h1, h2, h3{ font-family: "DM Serif Display", Georgia, serif; font-weight: 400; }
+
+h2{ font-size: 1.7rem; line-height: 1.2; margin-bottom: 16px; }
+h3{ font-size: 1.15rem; line-height: 1.25; }
+p{ color: var(--brown-soft); font-size: .95rem; }
+
+/* ---------- Cards ---------- */
+.card{
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    box-shadow: var(--shadow);
+}
+
+.cards{ display: grid; gap: 14px; }
+
+.icon{
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--orange);
+    color: var(--brown);
+    display: grid; place-items: center;
+    flex-shrink: 0;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+/* ---------- Hero ---------- */
+.hero{
+    position: relative;
+    isolation: isolate;
+    text-align: center;
+    /* fills the whole screen (minus the page's top padding) */
+    min-height: calc(100vh - var(--page-top));
+    min-height: calc(100svh - var(--page-top));
+    padding-bottom: 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Small arrow at the bottom: tells the visitor there is more below */
+.scroll-hint{
+    position: absolute;
+    left: 50%;
+    bottom: 12px;
+    transform: translateX(-50%);
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--card);
+    box-shadow: var(--shadow);
+}
+
+/* Background image: first section only, full width, faded */
+.hero::before{
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: calc(-1 * var(--page-top));
+    bottom: -32px;
+    left: 50%;
+    width: 100vw;
+    transform: translateX(-50%);
+    background: url("assets/img/background.jpg") center top / cover no-repeat;
+    opacity: .35;                 /* image strength: 0 = invisible, 1 = full */
+    -webkit-mask-image: linear-gradient(#000 65%, transparent);
+    mask-image: linear-gradient(#000 65%, transparent);   /* fades out at the bottom */
+}
+
+.logo{ width: clamp(150px, 28svh, 230px); height: auto; margin: 0 auto 12px; }
+
+h1{ font-size: 2.6rem; line-height: 1.1; margin-bottom: 12px; }
+
+.lead{ max-width: 34ch; margin: 0 auto 24px; font-size: 1.02rem; }
+
+.btn-download{
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%;
+    padding: 18px 24px;
+    background: var(--orange);
+    color: var(--brown);
+    border-radius: 999px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    box-shadow: 0 8px 20px rgba(255, 161, 31, .4);
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+.btn-download svg{ width: 1.4em; height: 1.4em; }
+.btn-download:hover{ transform: translateY(-2px); box-shadow: 0 12px 24px rgba(255, 161, 31, .45); }
+.btn-download:active{ transform: translateY(0); }
+
+.chip{
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    margin-top: 16px;
+    padding: 10px 16px;
+    background: var(--card);
+    border-radius: 16px;
+    font-size: .8rem;
+    font-weight: 600;
+    color: var(--brown);
+}
+.chip svg{ width: 1.1em; height: 1.1em; }
+
+/* ---------- Features & steps ---------- */
+.feature, .step{ display: flex; gap: 16px; align-items: flex-start; }
+.feature h3, .step h3{ margin-bottom: 4px; }
+.step h3{ font-family: "Inter", sans-serif; font-weight: 700; font-size: 1rem; }
+
+/* ---------- Screenshots ---------- */
+.shots{
+    background: #fbecd7;
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 18px;
+    scrollbar-width: none;
+}
+.shots::-webkit-scrollbar{ display: none; }
+.shots img{
+    height: 380px;
+    width: auto;
+    border-radius: 14px;
+    scroll-snap-align: center;
+    flex-shrink: 0;
+    background: rgba(255,161,31,.15);
+    min-width: 180px;
+}
+
+/* ---------- Info ---------- */
+.info dl{ display: grid; gap: 12px; }
+.info dl > div{ display: flex; justify-content: space-between; gap: 12px; }
+.info dt{ color: var(--brown-soft); }
+.info dd{ font-weight: 700; text-align: right; }
+.note{
+    margin-top: 16px;
+    padding: 14px 16px;
+    background: var(--bg);
+    border-radius: 16px;
+    font-size: .85rem;
+}
+
+/* ---------- Contact ---------- */
+.contact{ display: grid; gap: 14px; }
+.row{ display: flex; align-items: center; gap: 14px; }
+.row span:last-child{ display: grid; }
+.row small{ font-size: .75rem; color: var(--brown-soft); }
+.row strong{ font-size: 1rem; }
+
+.social{ margin-top: 14px; }
+.social h3{ font-family: "Inter", sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 12px; }
+.social-links{ display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.social-links a{
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 14px 10px;
+    background: var(--bg);
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: .9rem;
+    transition: background .15s ease;
+}
+.social-links a:hover{ background: #fff; }
+
+/* ---------- Footer ---------- */
+footer{
+    margin-top: 36px;
+    text-align: center;
+}
+footer p{ font-size: .78rem; margin-bottom: 8px; }
+
+/* ---------- Larger screens ---------- */
+@media (min-width: 700px){
+    :root{ --page-top: 56px; }
+    h1{ font-size: 3rem; }
+}
+
+@media (prefers-reduced-motion: reduce){
+    *{ transition: none !important; scroll-behavior: auto !important; }
+}
